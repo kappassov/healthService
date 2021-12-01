@@ -29,9 +29,6 @@ CREATE TABLE public.country (
     population bigint NOT NULL
 );
 
-
-ALTER TABLE public.country OWNER TO madara;
-
 --
 -- Name: discover; Type: TABLE; Schema: public; Owner: madara
 --
@@ -41,9 +38,6 @@ CREATE TABLE public.discover (
     disease_code character varying(50) NOT NULL,
     first_enc_date date NOT NULL
 );
-
-
-ALTER TABLE public.discover OWNER TO madara;
 
 --
 -- Name: disease; Type: TABLE; Schema: public; Owner: madara
@@ -57,8 +51,6 @@ CREATE TABLE public.disease (
 );
 
 
-ALTER TABLE public.disease OWNER TO madara;
-
 --
 -- Name: diseasetype; Type: TABLE; Schema: public; Owner: madara
 --
@@ -69,7 +61,6 @@ CREATE TABLE public.diseasetype (
 );
 
 
-ALTER TABLE public.diseasetype OWNER TO madara;
 
 --
 -- Name: doctor; Type: TABLE; Schema: public; Owner: madara
@@ -81,8 +72,6 @@ CREATE TABLE public.doctor (
 );
 
 
-ALTER TABLE public.doctor OWNER TO madara;
-
 --
 -- Name: publicservant; Type: TABLE; Schema: public; Owner: madara
 --
@@ -92,8 +81,6 @@ CREATE TABLE public.publicservant (
     department character varying(50) NOT NULL
 );
 
-
-ALTER TABLE public.publicservant OWNER TO madara;
 
 --
 -- Name: record; Type: TABLE; Schema: public; Owner: madara
@@ -109,8 +96,6 @@ CREATE TABLE public.record (
 );
 
 
-ALTER TABLE public.record OWNER TO madara;
-
 --
 -- Name: record_id_seq; Type: SEQUENCE; Schema: public; Owner: madara
 --
@@ -123,8 +108,6 @@ CREATE SEQUENCE public.record_id_seq
     NO MAXVALUE
     CACHE 1;
 
-
-ALTER TABLE public.record_id_seq OWNER TO madara;
 
 --
 -- Name: record_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: madara
@@ -143,9 +126,6 @@ CREATE TABLE public.specialize (
     index integer NOT NULL
 );
 
-
-ALTER TABLE public.specialize OWNER TO madara;
-
 --
 -- Name: specialize_index_seq; Type: SEQUENCE; Schema: public; Owner: madara
 --
@@ -158,8 +138,6 @@ CREATE SEQUENCE public.specialize_index_seq
     NO MAXVALUE
     CACHE 1;
 
-
-ALTER TABLE public.specialize_index_seq OWNER TO madara;
 
 --
 -- Name: specialize_index_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: madara
@@ -181,8 +159,6 @@ CREATE TABLE public.users (
     cname character varying(50) NOT NULL
 );
 
-
-ALTER TABLE public.users OWNER TO madara;
 
 --
 -- Name: record id; Type: DEFAULT; Schema: public; Owner: madara
