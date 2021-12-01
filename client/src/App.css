@@ -1,0 +1,9 @@
+NavLink.btn {
+  border-radius: 0.25rem;
+  border: 1px solid transparent;
+  color: rgb(236, 141, 15);
+  padding: 10;
+}
+NavLink.btn:hover {
+  border-radius: 0.25rem;
+}
