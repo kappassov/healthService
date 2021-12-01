@@ -6,11 +6,11 @@ const app = express();
 require("dotenv").config();
 
 PORT = process.env.PORT || 5000;
-
+HOST = "0.0.0.0";
 //middleware
 app.use(express.json());
 app.use(cors());
-app.use(morgan("dev"));
+//app.use(morgan("dev"));
 
 if (process.env.NODE_ENV === "production") {
   app.use(express.static("client/build"));
@@ -251,6 +251,6 @@ app.delete("/api/record/:id", async (req, res) => {
   }
 });
 
-app.listen(PORT, () => {
+app.listen(PORT, HOST, () => {
   console.log(`Server has started on PORT ${PORT}`);
 });
