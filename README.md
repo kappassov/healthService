@@ -1,7 +1,7 @@
 
 ## About The Project
 
-[![Soon][product-screenshot]](https://example.com)
+<img src="https://user-images.githubusercontent.com/54112738/144374160-3992e173-54ae-4e9f-8903-66fe3e581db5.png" width="90%"></img> 
 
 Full stack web application as a part of an assignment from Database Systems course.
 The idea is to create web service for Public Servants and Doctors with different accessible data. In this service they can track and edit necessary data for their work.
