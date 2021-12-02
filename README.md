@@ -18,7 +18,7 @@ The idea is to create web service for Public Servants and Doctors with different
 
 To set up this project locally follow these steps below:
 
-_Make sure that you have everything installed from the list above_
+_Make sure that you have everything installed from the list above, including setting up Postgres database from .sql file_
 1. Clone the repo
    ```sh
    git clone https://github.com/kappassov/healthService.git
