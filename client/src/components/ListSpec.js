@@ -4,7 +4,9 @@ const ListSpec = () => {
   const [specs, setSpecs] = useState([]);
   const getSpecs = async () => {
     try {
-      const response = await fetch("/api/specializations");
+      const response = await fetch(
+        "https://dbhw-health.herokuapp.com/api/specializations"
+      );
       const jsonData = await response.json();
 
       setSpecs(jsonData.data.users);
@@ -18,9 +20,12 @@ const ListSpec = () => {
 
   const deleteSpec = async (id) => {
     try {
-      const deleteSpec = await fetch(`/api/spec/${id}`, {
-        method: "DELETE",
-      });
+      const deleteSpec = await fetch(
+        `https://dbhw-health.herokuapp.com/api/spec/${id}`,
+        {
+          method: "DELETE",
+        }
+      );
       console.log(deleteSpec);
       getSpecs();
     } catch (err) {

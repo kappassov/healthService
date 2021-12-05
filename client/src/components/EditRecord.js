@@ -10,12 +10,15 @@ const EditRecord = ({ record }) => {
 
     try {
       const body = { total_deaths, total_patients };
-      const response = await fetch(`/api/record/${record.id}`, {
-        method: "PUT",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(body),
-      });
-      window.location = "/records";
+      const response = await fetch(
+        `https://dbhw-health.herokuapp.com/api/record/${record.id}`,
+        {
+          method: "PUT",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify(body),
+        }
+      );
+      window.location = "/records/data";
     } catch (err) {
       console.error(err);
     }
@@ -25,7 +28,7 @@ const EditRecord = ({ record }) => {
     <Fragment>
       <button
         type="button"
-        class="btn btn-info"
+        class="btn btn-lg btn-outline-info"
         data-toggle="modal"
         data-target={`#id${record.id}`}
       >
@@ -44,7 +47,9 @@ const EditRecord = ({ record }) => {
         <div class="modal-dialog">
           <div class="modal-content">
             <div class="modal-header">
-              <h4 class="modal-title">Edit record</h4>
+              <h4 class="modal-title" style={{ color: "black" }}>
+                Edit record
+              </h4>
               <button
                 type="button"
                 class="close"
@@ -58,7 +63,9 @@ const EditRecord = ({ record }) => {
               </button>
             </div>
             <div class="modal-body">
-              <label for="death">Total deaths: </label>
+              <label for="death" style={{ color: "black" }}>
+                Total deaths:{" "}
+              </label>
               <input
                 type="text"
                 className="form-control"
@@ -66,7 +73,9 @@ const EditRecord = ({ record }) => {
                 id="death"
                 onChange={(e) => setTotal_deaths(e.target.value)}
               />
-              <label for="patient">Total patients: </label>
+              <label for="patient" style={{ color: "black" }}>
+                Total patients:{" "}
+              </label>
               <input
                 type="text"
                 className="form-control"
@@ -78,7 +87,7 @@ const EditRecord = ({ record }) => {
             <div class="modal-footer">
               <button
                 type="button"
-                class="btn btn-info"
+                class="btn btn-lg btn-outline-info"
                 data-dismiss="modal"
                 onClick={(e) => updateData(e)}
               >

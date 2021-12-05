@@ -6,17 +6,34 @@ const Home = () => {
   const [salarySpecs, setSalarySpecs] = useState([]);
   const [avgSalary, setAvgSalary] = useState([]);
   const [patients, setPatients] = useState([]);
+  const [countries, setCountries] = useState([]);
+
+  const getTopCountries = async () => {
+    try {
+      const response = await fetch(
+        "https://dbhw-health.herokuapp.com/api/topcountries"
+      );
+      const jsonData = await response.json();
+
+      setCountries(jsonData.data.users);
+    } catch (err) {
+      console.error(err);
+    }
+  };
 
   const getPatients = async (disease_code) => {
     try {
       const body = { disease_code };
-      const response = await fetch("/api/patients", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(body),
-      });
+      const response = await fetch(
+        "https://dbhw-health.herokuapp.com/api/patients",
+        {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify(body),
+        }
+      );
       const jsonData = await response.json();
-      console.log(jsonData);
+
       setPatients(jsonData.data.users);
     } catch (err) {
       console.error(err);
@@ -26,11 +43,14 @@ const Home = () => {
   const getAvgSalary = async (description) => {
     try {
       const body = { description };
-      const response = await fetch("/api/avgsalary", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(body),
-      });
+      const response = await fetch(
+        "https://dbhw-health.herokuapp.com/api/avgsalary",
+        {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify(body),
+        }
+      );
       const jsonData = await response.json();
 
       setAvgSalary(jsonData.data.users);
@@ -41,7 +61,9 @@ const Home = () => {
 
   const getSalarySpecs = async () => {
     try {
-      const response = await fetch("/api/salaryspecs");
+      const response = await fetch(
+        "https://dbhw-health.herokuapp.com/api/salaryspecs"
+      );
       const jsonData = await response.json();
       //console.log(jsonData.data.users);
       setSalarySpecs(jsonData.data.users);
@@ -51,6 +73,7 @@ const Home = () => {
   };
   useEffect(() => {
     getSalarySpecs();
+    getTopCountries();
   }, []);
 
   return (
@@ -58,9 +81,8 @@ const Home = () => {
       <h1
         className="text-center mt-5"
         style={{
-          fontFamily: "Open Sans Condensed",
+          fontWeight: "bold",
           fontSize: 48,
-          color: "#333",
         }}
       >
         WELCOME
@@ -68,9 +90,7 @@ const Home = () => {
       <h3
         className="text-center mt-3"
         style={{
-          fontFamily: "Open Sans Condensed",
           fontSize: 30,
-          color: "#333",
         }}
       >
         you can access data based on <b>who you are </b>:
@@ -107,11 +127,32 @@ const Home = () => {
       </div>
       <div className="mt-5 text-center">
         <h2
-          className="mt-3"
+          className="text-center mt-3"
           style={{
-            fontFamily: "Open Sans Condensed",
             fontSize: 20,
-            color: "#333",
+          }}
+        >
+          You decide to be a Public Servant? Just look at those{" "}
+          <b>number of COVID-19 patients </b>!
+        </h2>
+        <button
+          className="btn btn-primary mt-2"
+          onClick={() => getPatients("covid-19")}
+        >
+          REFRESH
+        </button>
+        <h4
+          className="text-center mt-3"
+          style={{
+            fontSize: 40,
+          }}
+        >
+          {patients.map((patient) => patient.sum)}
+        </h4>
+        <h2
+          className="mt-5"
+          style={{
+            fontSize: 20,
           }}
         >
           If you want to be a Doctor but didn't come up with specialization, you
@@ -137,39 +178,40 @@ const Home = () => {
         <h4
           className="text-center mt-4"
           style={{
-            fontFamily: "font-variant-numeric",
             fontSize: 40,
           }}
         >
           {avgSalary.map((avg) => avg.avg_salary) + " KZT"}
         </h4>
-
-        <h2
-          className="text-center mt-4"
-          style={{
-            fontFamily: "Open Sans Condensed",
-            fontSize: 20,
-            color: "#333",
-          }}
+      </div>
+      <h2
+        className="text-center mt-5"
+        style={{
+          fontSize: 20,
+        }}
+      >
+        We need your help to treat all of these people:
+      </h2>
+      <div style={{ textAlign: "center" }}>
+        <table
+          className="table table-striped mt-3 w-50 "
+          style={{ margin: "auto" }}
         >
-          You decide to be a Public Servant? Just look at those{" "}
-          <b>number of COVID-19 patients </b>!
-        </h2>
-        <button
-          className="btn btn-lg btn-outline-primary mt-2"
-          onClick={() => getPatients("covid-19")}
-        >
-          REFRESH
-        </button>
-        <h4
-          className="text-center mt-3"
-          style={{
-            fontFamily: "font-variant-numeric",
-            fontSize: 40,
-          }}
-        >
-          {patients.map((patient) => patient.sum)}
-        </h4>
+          <thead>
+            <tr>
+              <th>Country</th>
+              <th>Currently diseased</th>
+            </tr>
+          </thead>
+          <tbody>
+            {countries.map((country) => (
+              <tr key={country.cname}>
+                <td>{country.cname}</td>
+                <td>{country.sum}</td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
       </div>
     </div>
   );

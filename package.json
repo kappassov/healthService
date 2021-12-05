@@ -4,12 +4,15 @@
   "description": "",
   "main": "index.js",
   "engines": {
-    "node":"v14.17.1",
+    "node": "v14.17.1",
     "npm": "6.14.13"
   },
   "scripts": {
     "start": "node server.js",
-    "heroku-postbuild":"cd client && npm install && npm run build"
+    "server": "nodemon server.js",
+    "client": "cd client && npm start",
+    "dev": "concurrently --kill-others \"npm run server\" \"npm run client\"",
+    "heroku-postbuild": "cd client && npm install && npm run build"
   },
   "keywords": [],
   "author": "",
@@ -19,6 +22,10 @@
     "dotenv": "^10.0.0",
     "express": "^4.17.1",
     "morgan": "^1.10.0",
+    "npm-run-all": "^4.1.5",
     "pg": "^8.7.1"
+  },
+  "devDependencies": {
+    "concurrently": "^6.4.0"
   }
 }
