@@ -10,11 +10,76 @@ HOST = "0.0.0.0";
 //middleware
 app.use(express.json());
 app.use(cors());
-//app.use(morgan("dev"));
+app.use(morgan("dev"));
 
 if (process.env.NODE_ENV === "production") {
   app.use(express.static("client/build"));
 }
+
+//CREATE PUB SERVANT
+app.post("/api/publicservant", async (req, res) => {
+  try {
+    const result = await db.query(
+      "INSERT INTO publicservant (email, department) values ($1, $2) returning *",
+      [req.body.email, req.body.department]
+    );
+    res.json({
+      status: "success",
+      data: {
+        user: result.rows[0],
+      },
+    });
+  } catch (e) {
+    console.log(e);
+  }
+});
+
+//CREATE USER
+app.post("/api/createuser", async (req, res) => {
+  console.log("RESPONSE", req.body.email);
+  console.log("RESPONSE", req.body.name);
+  console.log("RESPONSE", req.body.surname);
+
+  try {
+    const result = await db.query(
+      "INSERT INTO users (email, name, surname, salary, phone, cname) values ($1, $2, $3, $4, $5, $6) returning *",
+      [
+        req.body.email,
+        req.body.name,
+        req.body.surname,
+        req.body.salary,
+        req.body.phone,
+        req.body.cname,
+      ]
+    );
+    res.json({
+      status: "success",
+      data: {
+        user: result.rows[0],
+      },
+    });
+  } catch (e) {
+    console.log(e);
+  }
+});
+
+//get top countries
+app.get("/api/topcountries/", async (req, res) => {
+  try {
+    const result = await db.query(
+      "SELECT cname, sum(total_patients) FROM record group by cname order by sum(total_patients) desc"
+    );
+    res.json({
+      status: "success",
+      result: result.rows.length,
+      data: {
+        users: result.rows,
+      },
+    });
+  } catch (e) {
+    console.log(e);
+  }
+});
 
 //GET ALL RECORDS
 app.get("/api/records/", async (req, res) => {
@@ -201,7 +266,6 @@ app.put("/api/record/:id", async (req, res) => {
       "UPDATE record SET total_deaths = $2, total_patients = $3 where id = $1 returning *",
       [id, req.body.total_deaths, req.body.total_patients]
     );
-    console.log(result.rows[0]);
     res.json({
       status: "success",
       data: {
@@ -226,7 +290,6 @@ app.post("/api/record", async (req, res) => {
         req.body.total_patients,
       ]
     );
-    console.log(result);
     res.json({
       status: "success",
       data: {
@@ -251,6 +314,6 @@ app.delete("/api/record/:id", async (req, res) => {
   }
 });
 
-app.listen(PORT, HOST, () => {
+app.listen(PORT, () => {
   console.log(`Server has started on PORT ${PORT}`);
 });
