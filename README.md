@@ -1,10 +1,11 @@
 
 ## About The Project
 
-[![Soon][product-screenshot]](https://example.com)
+<img src="https://user-images.githubusercontent.com/54112738/144374160-3992e173-54ae-4e9f-8903-66fe3e581db5.png" width="90%"></img> 
 
 Full stack web application as a part of an assignment from Database Systems course.
 The idea is to create web service for Public Servants and Doctors with different accessible data. In this service they can track and edit necessary data for their work.
+### [Click here to visit](https://dbhw-health.herokuapp.com/) 🌐
 
 ### Built With
 
@@ -18,7 +19,7 @@ The idea is to create web service for Public Servants and Doctors with different
 
 To set up this project locally follow these steps below:
 
-_Make sure that you have everything installed from the list above_
+_Make sure that you have everything installed from the list above, including setting up Postgres database from .sql file_
 1. Clone the repo
    ```sh
    git clone https://github.com/kappassov/healthService.git
@@ -40,19 +41,3 @@ _Make sure that you have everything installed from the list above_
     npm start
     cd client npm start
    ```
-   
-<!-- MARKDOWN LINKS & IMAGES -->
-<!-- https://www.markdownguide.org/basic-syntax/#reference-style-links -->
-[contributors-shield]: https://img.shields.io/github/contributors/othneildrew/Best-README-Template.svg?style=for-the-badge
-[contributors-url]: https://github.com/othneildrew/Best-README-Template/graphs/contributors
-[forks-shield]: https://img.shields.io/github/forks/othneildrew/Best-README-Template.svg?style=for-the-badge
-[forks-url]: https://github.com/othneildrew/Best-README-Template/network/members
-[stars-shield]: https://img.shields.io/github/stars/othneildrew/Best-README-Template.svg?style=for-the-badge
-[stars-url]: https://github.com/othneildrew/Best-README-Template/stargazers
-[issues-shield]: https://img.shields.io/github/issues/othneildrew/Best-README-Template.svg?style=for-the-badge
-[issues-url]: https://github.com/othneildrew/Best-README-Template/issues
-[license-shield]: https://img.shields.io/github/license/othneildrew/Best-README-Template.svg?style=for-the-badge
-[license-url]: https://github.com/othneildrew/Best-README-Template/blob/master/LICENSE.txt
-[linkedin-shield]: https://img.shields.io/badge/-LinkedIn-black.svg?style=for-the-badge&logo=linkedin&colorB=555
-[linkedin-url]: https://linkedin.com/in/othneildrew
-[product-screenshot]: images/screenshot.png
