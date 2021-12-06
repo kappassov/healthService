@@ -23,7 +23,7 @@ const CreateRecord = () => {
         }
       );
       //console.log(response);
-      window.location = "/records";
+      window.location = "/";
     } catch (err) {
       console.log(err);
     }
