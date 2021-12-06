@@ -30,7 +30,7 @@ const CreateUser = () => {
         }
       );
       //console.log(response);
-      window.location = "/";
+      window.location = "/records";
     } catch (err) {
       console.log(err);
     }
@@ -51,7 +51,7 @@ const CreateUser = () => {
         }
       );
       console.log(response);
-      window.location = "/";
+      window.location = "/records";
     } catch (err) {
       console.log(err);
     }
