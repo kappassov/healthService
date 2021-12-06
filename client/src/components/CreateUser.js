@@ -3,55 +3,76 @@ import { NavLink } from "react-router-dom";
 const CreateUser = () => {
   const [countries, setCountries] = useState([]);
   const [servEmails, setServEmails] = useState([]);
-  const [regEmail, setRegEmail] = useState("");
-  const [regName, setRegName] = useState("");
-  const [regSurname, setRegSurname] = useState("");
-  const [regPhone, setRegPhone] = useState("");
-  const [regSalary, setRegSalary] = useState("");
+  const [email, setEmail] = useState("");
+  const [name, setName] = useState("");
+  const [surname, setSurname] = useState("");
+  const [phone, setPhone] = useState("");
+  const [salary, setSalary] = useState("");
   const [cname, setCname] = useState("");
-
+  const [department, setDepartment] = useState("");
   const createUser = async (e) => {
     e.preventDefault();
-    console.log("regEmail", regEmail);
-    console.log("regName", regName);
-    console.log("regSurname", regSurname);
-    console.log("regPhone", regPhone);
-    console.log("reqSalary", regSalary);
-    console.log("cname", cname);
-
     try {
       const body = {
-        regEmail,
-        regName,
-        regSurname,
-        regSalary,
-        regPhone,
+        email,
+        name,
+        surname,
+        salary,
+        phone,
         cname,
       };
-      const response = await fetch("http://localhost:5000/api/createuser", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(body),
-      });
+      const response = await fetch(
+        "https://dbhw-health.herokuapp.com/api/createuser",
+        {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify(body),
+        }
+      );
+      //console.log(response);
+      window.location = "/records";
+    } catch (err) {
+      console.log(err);
+    }
+  };
+  const createServant = async (e) => {
+    e.preventDefault();
+    try {
+      const body = {
+        email,
+        department,
+      };
+      const response = await fetch(
+        "https://dbhw-health.herokuapp.com/api/publicservant",
+        {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify(body),
+        }
+      );
       console.log(response);
       window.location = "/records";
     } catch (err) {
       console.log(err);
     }
   };
-
   const getEmails = async () => {
     try {
-      const response = await fetch("http://localhost:5000/api/pubservants");
+      const response = await fetch(
+        "https://dbhw-health.herokuapp.com/api/users"
+      );
       const jsonData = await response.json();
       setServEmails(jsonData.data.users);
     } catch (err) {
       console.error(err);
     }
   };
+
   const getCountries = async () => {
     try {
-      const response = await fetch("http://localhost:5000/api/countries");
+      const response = await fetch(
+        "https://dbhw-health.herokuapp.com/api/countries"
+      );
       const jsonData = await response.json();
 
       setCountries(jsonData.data.users);
@@ -80,40 +101,40 @@ const CreateUser = () => {
           <input
             type="text"
             className="form-control text-center w-50"
-            value={regEmail}
-            onChange={(e) => setRegEmail(e.target.value)}
+            value={email}
+            onChange={(e) => setEmail(e.target.value)}
             style={{ margin: "auto" }}
             placeholder="email"
           />
           <input
             type="text"
             className="form-control text-center w-50"
-            value={regName}
-            onChange={(e) => setRegName(e.target.value)}
+            value={name}
+            onChange={(e) => setName(e.target.value)}
             style={{ margin: "auto" }}
             placeholder="name"
           />
           <input
             type="text"
             className="form-control text-center w-50"
-            value={regSurname}
-            onChange={(e) => setRegSurname(e.target.value)}
+            value={surname}
+            onChange={(e) => setSurname(e.target.value)}
             style={{ margin: "auto" }}
             placeholder="surname"
           />
           <input
             type="text"
             className="form-control text-center w-50"
-            value={regSalary}
-            onChange={(e) => setRegSalary(e.target.value)}
+            value={salary}
+            onChange={(e) => setSalary(e.target.value)}
             style={{ margin: "auto" }}
             placeholder="salary"
           />
           <input
             type="text"
             className="form-control text-center w-50"
-            value={regPhone}
-            onChange={(e) => setRegPhone(e.target.value)}
+            value={phone}
+            onChange={(e) => setPhone(e.target.value)}
             style={{ margin: "auto" }}
             placeholder="phone number"
           />
@@ -138,7 +159,37 @@ const CreateUser = () => {
           </select>
 
           <button type="submit" className="btn btn-primary mt-3">
-            Register
+            Register user
+          </button>
+        </form>
+        <form
+          className="form-control d-flex mt-5 w-50"
+          style={{ margin: "auto" }}
+          onSubmit={createServant}
+        >
+          <select
+            value={email}
+            className="form-control text-center w-50"
+            aria-label=".form-select-lg example"
+            onChange={(e) => setEmail(e.target.value)}
+            style={{ margin: "auto" }}
+          >
+            <option value="">email</option>
+            {servEmails.map((user) => (
+              <option name={user.email} key={user.email} value={user.email}>
+                {user.email}
+              </option>
+            ))}
+          </select>
+          <input
+            className="form-control text-center w-50"
+            type="text"
+            value={department}
+            onChange={(e) => setDepartment(e.target.value)}
+            placeholder="Department"
+          />
+          <button type="submit" className="btn btn-primary w-60 ml-3">
+            Add Servant
           </button>
         </form>
       </div>
