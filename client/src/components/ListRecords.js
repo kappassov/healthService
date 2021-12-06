@@ -13,7 +13,7 @@ const ListRecords = () => {
         }
       );
       console.log(deleteRec);
-      window.location = "/";
+      window.location = "/records/data";
     } catch (err) {
       console.error(err);
     }
