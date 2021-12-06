@@ -192,7 +192,24 @@ app.delete("/api/spec/:id", async (req, res) => {
 app.get("/api/pubservants/", async (req, res) => {
   try {
     const result = await db.query("select email from publicservant");
-    console.log(result);
+
+    res.json({
+      status: "success",
+      result: result.rows.length,
+      data: {
+        users: result.rows,
+      },
+    });
+  } catch (e) {
+    console.log(e);
+  }
+});
+
+//GET USERS
+app.get("/api/users/", async (req, res) => {
+  try {
+    const result = await db.query("select email from users");
+
     res.json({
       status: "success",
       result: result.rows.length,
@@ -209,7 +226,7 @@ app.get("/api/pubservants/", async (req, res) => {
 app.get("/api/countries/", async (req, res) => {
   try {
     const result = await db.query("select cname from country");
-    console.log(result);
+
     res.json({
       status: "success",
       result: result.rows.length,
@@ -226,7 +243,7 @@ app.get("/api/countries/", async (req, res) => {
 app.get("/api/diseases/", async (req, res) => {
   try {
     const result = await db.query("select disease_code from disease");
-    console.log(result);
+
     res.json({
       status: "success",
       result: result.rows.length,
@@ -246,7 +263,7 @@ app.get("/api/user/", async (req, res) => {
     const result = await db.query("select * from users where email = $1", [
       email,
     ]);
-    console.log(result.rows[0]);
+
     res.json({
       status: "success",
       data: {
